@@ -7,17 +7,18 @@
 #include <chrono>
 #include <vector>
 
-int w {20}, h {16};     // field width & height
+constexpr int width {20};
+constexpr int height {16};
 
-std::vector<char> buffer(w*h);
-std::vector<char> field(w*h, ' ');
+std::vector<char> buffer(width*height);
+std::array<char, width * height> field;
 
 // offsets
 int posX {8};
 int posY {1};
 
 // rotate the pieces
-int rotate(int x, int y, int r)
+constexpr int rotate(int x, int y, int r)
 {
     switch(r % 4)
     {
@@ -51,11 +52,11 @@ int main(int argc, char* argv[])
         std::fill(buffer.begin(), buffer.end(), ' ');           // fill entire 'buffer' array with spaces
 
         // draw the walls: top, bottom, left, and right with the '#' character
-        for(int y{0}; y < h; y++)
+        for(int y{0}; y < height; y++)
         {
-            for(int x {0}; x < w; x++)
+            for(int x {0}; x < width; x++)
             {
-                buffer[y*w+x] = (x == 0 || x == w-1 || y == 0 || y == h-1) ? '#' : field[y * w + x];
+                buffer[y*width+x] = (x == 0 || x == width-1 || y == 0 || y == height-1) ? '#' : field[y * width + x];
             }
         }
 
@@ -70,29 +71,29 @@ int main(int argc, char* argv[])
             {
                 if(Pieces::getTetromino()[rotate(px, py, r)] == 'X')
                 {
-                    buffer[(py + posY) * w + (px + posX)] = 'X';      // draw the piece with offsetts on x and y
+                    buffer[(py + posY) * width + (px + posX)] = 'X';      // draw the piece with offsetts on x and y
 
                     // check collision with bottom floor
-                    if(buffer[(py + posY + 1) * w + (px + posX)] == '#' || buffer[(py +  posY + 1) * w + (px + posX)] == 'X') 
-                        canMoveDown = false;
+                    if(buffer[(py + posY + 1) * width + (px + posX)] == '#' || buffer[(py +  posY + 1) * width + (px + posX)] == 'X') 
+                    { canMoveDown = false; }
 
                     // check collision with right wall
-                    if(buffer[(py + posY) * w + (px + posX + 1)] == '#' || buffer[(py + posY) * w + (px + posX + 1)] == 'X') 
-                        canMoveRight = false;
+                    if(buffer[(py + posY) * width + (px + posX + 1)] == '#' || buffer[(py + posY) * width + (px + posX + 1)] == 'X') 
+                    { canMoveRight = false; }
 
                     // check collision with left wall
-                    if(buffer[(py + posY) * w + (px + posX - 1)] == '#' || buffer[(py + posY) * w + (px + posX - 1)] == 'X') 
-                        canMoveLeft = false;
+                    if(buffer[(py + posY) * width + (px + posX - 1)] == '#' || buffer[(py + posY) * width + (px + posX - 1)] == 'X') 
+                    { canMoveLeft = false; }
                 }
             }
         }
 
         // print the entire field
-        for(int y {0}; y < h; y++)
+        for(int y {0}; y < height; y++)
         {
-            for(int x {0}; x < w; x++)
+            for(int x {0}; x < width; x++)
             {
-                std::print("{}", buffer[y * w + x]);
+                std::print("{}", buffer[y * width + x]);
             }
             std::println("");
         }
@@ -106,7 +107,7 @@ int main(int argc, char* argv[])
                 {
                     if(Pieces::getTetromino()[rotate(px, py, r)] == 'X')
                     {
-                        field[(py + posY) * w + (px + posX)] = 'X';
+                        field[(py + posY) * width + (px + posX)] = 'X';
                     }
                 }
             }
