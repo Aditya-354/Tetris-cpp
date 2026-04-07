@@ -5,12 +5,12 @@
 #include <iostream>
 #include <thread>
 #include <chrono>
-#include <vector>
+#include <array>
 
 constexpr int width {20};
 constexpr int height {16};
 
-std::vector<char> buffer(width*height);
+std::array<char, width * height> buffer;
 std::array<char, width * height> field;
 
 // offsets
@@ -32,6 +32,8 @@ constexpr int rotate(int x, int y, int r)
 
 int main(int argc, char* argv[])
 {
+    field.fill(' ');
+    buffer.fill(' ');
     int r {0};
     if(argc > 2)
     {
@@ -49,7 +51,7 @@ int main(int argc, char* argv[])
 
     while(true)
     {
-        std::fill(buffer.begin(), buffer.end(), ' ');           // fill entire 'buffer' array with spaces
+        buffer.fill(' ');           // fill entire 'buffer' array with spaces
 
         // draw the walls: top, bottom, left, and right with the '#' character
         for(int y{0}; y < height; y++)
