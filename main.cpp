@@ -76,15 +76,15 @@ int main(int argc, char* argv[])
                     buffer[(py + posY) * width + (px + posX)] = 'X';      // draw the piece with offsetts on x and y
 
                     // check collision with bottom floor
-                    if(buffer[(py + posY + 1) * width + (px + posX)] == '#' || buffer[(py +  posY + 1) * width + (px + posX)] == 'X') 
+                    if(buffer[(py + posY + 1) * width + (px + posX)] == '#' || buffer[(py +  posY + 1) * width + (px + posX)] == 'X')
                     { canMoveDown = false; }
 
                     // check collision with right wall
-                    if(buffer[(py + posY) * width + (px + posX + 1)] == '#' || buffer[(py + posY) * width + (px + posX + 1)] == 'X') 
+                    if(buffer[(py + posY) * width + (px + posX + 1)] == '#' || buffer[(py + posY) * width + (px + posX + 1)] == 'X')
                     { canMoveRight = false; }
 
                     // check collision with left wall
-                    if(buffer[(py + posY) * width + (px + posX - 1)] == '#' || buffer[(py + posY) * width + (px + posX - 1)] == 'X') 
+                    if(buffer[(py + posY) * width + (px + posX - 1)] == '#' || buffer[(py + posY) * width + (px + posX - 1)] == 'X')
                     { canMoveLeft = false; }
                 }
             }
