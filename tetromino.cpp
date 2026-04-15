@@ -1,6 +1,6 @@
 #include "tetromino-pieces.h"
 
-namespace Pieces
+namespace Tetromino
 {
     std::string tetromino_1 {
         "..X."
@@ -16,8 +16,9 @@ namespace Pieces
         "...."
     };
 
-    std::string getTetromino()
-    {
-        return tetromino_2;
-    }
+}
+
+std::string getTetromino()
+{
+    return Tetromino::tetromino_2;
 }
